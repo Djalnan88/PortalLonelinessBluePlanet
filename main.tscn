@@ -1,0 +1,152 @@
+[gd_scene load_steps=24 format=3 uid="uid://b73xpwewbi3xj"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_ltgp7"]
+[ext_resource type="PackedScene" uid="uid://dudnxv2hha3pa" path="res://player.tscn" id="2_0leoi"]
+[ext_resource type="Texture2D" uid="uid://bd3ak1n4wcbtc" path="res://art/ground.png" id="2_4nau3"]
+[ext_resource type="Texture2D" uid="uid://yn3qswf5x1f7" path="res://art/grass.png" id="3_bnl7m"]
+[ext_resource type="Texture2D" uid="uid://dtt82ogwttpdn" path="res://art/tree.png" id="4_2yyps"]
+[ext_resource type="Texture2D" uid="uid://c7ded6tdoavtl" path="res://art/water.png" id="5_gr2kg"]
+[ext_resource type="Texture2D" uid="uid://b5xeayrk7nu6t" path="res://art/bridge.png" id="6_at7l0"]
+[ext_resource type="Texture2D" uid="uid://n4f0sbajpo7s" path="res://art/enemy_1.png" id="7_8hwym"]
+[ext_resource type="Texture2D" uid="uid://bqda7ix5kpg4x" path="res://art/enemy_2.png" id="8_pxtx1"]
+[ext_resource type="Texture2D" uid="uid://dfe6ihpmyhsbb" path="res://art/enemy_3.png" id="9_6dvcd"]
+[ext_resource type="Texture2D" uid="uid://dlhvyhpj6ynf2" path="res://art/portal.png" id="10_t0vw7"]
+[ext_resource type="FontFile" uid="uid://b43juhrlwoaud" path="res://font/DNFBitBitv2.ttf" id="12_4iqvj"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ka264"]
+resource_name = "wall"
+texture = ExtResource("5_gr2kg")
+texture_region_size = Vector2i(50, 50)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3vpfc"]
+resource_name = "bridge"
+texture = ExtResource("6_at7l0")
+texture_region_size = Vector2i(50, 50)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2f7r5"]
+resource_name = "ground"
+texture = ExtResource("2_4nau3")
+texture_region_size = Vector2i(50, 50)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i0vhu"]
+resource_name = "grass"
+texture = ExtResource("3_bnl7m")
+texture_region_size = Vector2i(50, 50)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7feoo"]
+resource_name = "tree"
+texture = ExtResource("4_2yyps")
+texture_region_size = Vector2i(50, 50)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_vqsim"]
+tile_size = Vector2i(50, 50)
+sources/5 = SubResource("TileSetAtlasSource_2f7r5")
+sources/6 = SubResource("TileSetAtlasSource_i0vhu")
+sources/7 = SubResource("TileSetAtlasSource_7feoo")
+sources/1 = SubResource("TileSetAtlasSource_ka264")
+sources/3 = SubResource("TileSetAtlasSource_3vpfc")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g11hj"]
+resource_name = "enemy_1"
+texture = ExtResource("7_8hwym")
+texture_region_size = Vector2i(50, 50)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uv7if"]
+resource_name = "enemy_2"
+texture = ExtResource("8_pxtx1")
+texture_region_size = Vector2i(50, 50)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_empa0"]
+resource_name = "enemy_3"
+texture = ExtResource("9_6dvcd")
+texture_region_size = Vector2i(50, 50)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gwmqt"]
+resource_name = "portal"
+texture = ExtResource("10_t0vw7")
+texture_region_size = Vector2i(50, 50)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_2sfgh"]
+tile_size = Vector2i(50, 50)
+sources/3 = SubResource("TileSetAtlasSource_empa0")
+sources/2 = SubResource("TileSetAtlasSource_uv7if")
+sources/1 = SubResource("TileSetAtlasSource_g11hj")
+sources/5 = SubResource("TileSetAtlasSource_gwmqt")
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_ltgp7")
+
+[node name="Map" type="TileMap" parent="."]
+position = Vector2(15, 255)
+tile_set = SubResource("TileSet_vqsim")
+format = 2
+
+[node name="EnemyMap" type="TileMap" parent="."]
+position = Vector2(15, 255)
+tile_set = SubResource("TileSet_2sfgh")
+format = 2
+
+[node name="PlayerFace" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Player" parent="." instance=ExtResource("2_0leoi")]
+
+[node name="LabelLevel" type="Label" parent="."]
+offset_left = 225.0
+offset_top = 30.0
+offset_right = 450.0
+offset_bottom = 67.0
+theme_override_fonts/font = ExtResource("12_4iqvj")
+theme_override_font_sizes/font_size = 24
+text = "LEVEL"
+
+[node name="LabelFloor" type="Label" parent="."]
+offset_left = 225.0
+offset_top = 80.0
+offset_right = 450.0
+offset_bottom = 117.0
+theme_override_fonts/font = ExtResource("12_4iqvj")
+theme_override_font_sizes/font_size = 24
+text = "FLOOR"
+
+[node name="LabelExp" type="Label" parent="."]
+offset_left = 225.0
+offset_top = 130.0
+offset_right = 450.0
+offset_bottom = 167.0
+theme_override_fonts/font = ExtResource("12_4iqvj")
+theme_override_font_sizes/font_size = 24
+text = "EXP"
+
+[node name="LabelHealth" type="Label" parent="."]
+offset_left = 225.0
+offset_top = 180.0
+offset_right = 450.0
+offset_bottom = 217.0
+theme_override_fonts/font = ExtResource("12_4iqvj")
+theme_override_font_sizes/font_size = 24
+text = "HP"
+
+[node name="LabelGameover" type="Label" parent="."]
+visible = false
+offset_right = 480.0
+offset_bottom = 720.0
+size_flags_horizontal = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("12_4iqvj")
+theme_override_font_sizes/font_size = 128
+text = "GAME
+OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
